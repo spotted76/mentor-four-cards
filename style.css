@@ -16,7 +16,8 @@ body {
 }
 
 main {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 100%;
     grid-template-rows: 33% 1fr;
     gap: 5rem 0;
@@ -25,14 +26,12 @@ main {
 
 #title {
     border: 2px solid red;
-    grid-column: 1/2;
-    grid-row: 1/2;
+    flex-basis: 30%;
 }
 
 #content {
     border: 2px solid blue;
-    grid-column: 1/2;
-    grid-row: 2/3;
+    flex-grow: 1;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -48,8 +47,8 @@ main {
 
 
 /* For desktop view, divs are identified starting with the left most
-   Div, moving around clockwise, with the last div being the bottom 
-   most div */
+   Div, moving top, bottom, then right.  When the align to mobile, 
+   it will line up 1,2,3,4 stacked */
 
 #content .card:nth-child(1) {
     grid-column: 1/2;
@@ -62,12 +61,36 @@ main {
 }
 
 #content .card:nth-child(3) {
+    grid-column: 2/3;
+    grid-row: 3/5;
+}
+
+#content .card:nth-child(4) {
     grid-column: 3/4;
     grid-row: 2/4;
 }
 
-#content .card:nth-child(4) {
-    grid-column: 2/3;
-    grid-row: 3/5;
+
+/* Mobile specific.  Switch from grid to flex, way easier */
+@media (max-width: 720px)
+{
+
+    body {
+        width: 60%;
+    }
+
+    #title {
+        flex-basis: 20%;
+    }
+
+    #content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card {
+        flex-basis: 25%;
+    }
+
 }
 
